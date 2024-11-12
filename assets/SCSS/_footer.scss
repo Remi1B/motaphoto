@@ -1,0 +1,23 @@
+.footer {
+    &_menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top: black solid 1px;
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    }
+    &_nav {
+        ul {
+            list-style: none;
+            display: flex;
+            text-transform: uppercase;
+            li {
+                white-space: nowrap;
+                padding: 0 50px;
+            }
+        }
+    }
+}

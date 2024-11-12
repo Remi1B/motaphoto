@@ -1,6 +1,5 @@
 <!-- Exemple de structure index.php -->
 <?php 
-echo '<p>Template enfant motaphoto chargé !</p>';
 get_header(); ?>
 
 <div class="content-area">
