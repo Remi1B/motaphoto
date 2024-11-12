@@ -4,6 +4,10 @@ function mon_theme_enqueue_styles() {
 }
 add_action('wp_enqueue_scripts', 'mon_theme_enqueue_styles');
 
+function mon_theme_enqueue_scripts() {
+    wp_enqueue_script('modale_contact', get_stylesheet_directory_uri() . '/js/modale_contact.js', array(), null, true);
+}
+add_action('wp_enqueue_scripts', 'mon_theme_enqueue_scripts');
 
 // Ajouter la prise en charge des images mises en avant
 add_theme_support( 'post-thumbnails' );

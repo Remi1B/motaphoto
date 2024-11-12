@@ -1,5 +1,14 @@
 @import 'header';
 @import 'footer';
+@import 'single-photo';
+@import 'modale_contact';
+@import 'fonts';
+
 body {
     margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
