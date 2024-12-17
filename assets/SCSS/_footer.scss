@@ -1,18 +1,29 @@
 .footer {
+
     &_menu {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-top: black solid 1px;
+        @include flex-center(flex, row, center, center);
+        @include border(1px, solid, $black-color);
     }
+
     &_nav {
-        ul {
+        & ul {
             list-style: none;
-            display: flex;
-            text-transform: uppercase;
-            li {
+            @include flex-center(flex, row, center, flex-start);
+            @include text-style(uppercase, 16px);
+            @media (max-width : $mobile) {
+                @include flex-center(flex, column, center, center);
+                gap : $spacing-small;
+                padding: $spacing-medium 0;
+            }
+            @media (min-width : $mobile) and (max-width : $tablette) {
+                font-size: $font-size-xsmall;
+            }
+            & li {
                 white-space: nowrap;
-                padding: 0 50px;
+                padding: 0 $spacing-large;
+                @media (min-width : $mobile) and (max-width : $tablette) {
+                    padding: 0 $spacing-medium;
+                }
             }
         }
     }

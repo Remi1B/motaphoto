@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: $black-color;
+    &:hover {
+        font-weight: bold;
+    }
+}
+
+:root, button {
+    font-family: 'SpaceMono';
+    font-weight: normal;
+}
+
+h1{
+    @include text-style (uppercase, $font-size-large, 700, $primary-font, italic);
+
+}
+
+h2 {
+    @include text-style (uppercase, $font-size-medium, 400, $primary-font, italic);
+    line-height: 58px;
+    @media (max-width : $mobile) {
+        font-size: 46px;
+        line-height: 48px;
+        margin: 0;
+    } 
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 26.66px;
+}
+
+main {
+    margin-bottom: 5%;
+}
