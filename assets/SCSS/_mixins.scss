@@ -1,0 +1,40 @@
+@mixin flex-center($display: flex, $direction: row, $justify: center, $align: center) {
+    display: $display;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin border($width: 1px, $style: solid, $color: $border-color) {
+    border: $width $style $color;
+}
+
+@mixin text-style($transform: none, $size: $font-size-small, $weight: normal, $family: $primary-font, $fontstyle: inherit) {
+    text-transform: $transform;
+    font-size: $size;
+    font-weight: $weight;
+    font-family: $family;
+    font-style: $fontstyle;
+}
+
+@mixin box-shadow($x: 0px, $y: 4px, $blur: 14px, $spread: 10px, $color: $shadow-color) {
+    box-shadow: $x $y $blur $spread $color;
+}
+
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+    transition: $property $duration $timing;
+}
+
+@mixin button-style($bg: $grey-medium-color, $color: $black-color, $radius: 2px, $shadow: true) {
+    background: $bg;
+    color: $color;
+    border-radius: $radius;
+    @if $shadow {
+        box-shadow: 0px 2px 1px 0px $shadow-color;
+    }
+    &:hover {
+        background: $black-color;
+        color: $white-color;
+        font-weight: bold;
+    }
+}

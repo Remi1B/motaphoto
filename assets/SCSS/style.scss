@@ -1,14 +1,12 @@
+@import 'variables';
+@import 'mixins';
 @import 'header';
 @import 'footer';
 @import 'single-photo';
 @import 'modale_contact';
 @import 'fonts';
-
-body {
-    margin: 0;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
+@import 'index';
+@import 'lighbox';
+@import 'photo_gallery';
+@import 'hero_header';
+@import 'select_filters';
