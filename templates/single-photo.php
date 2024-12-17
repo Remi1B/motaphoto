@@ -5,73 +5,112 @@
     if (have_posts()) :
          the_post();
     ?>
-    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+    <article id="post-<?php the_ID(); ?>" <?php post_class('post_article'); ?>>
         <div class="post_infos">
             <div class="post_description">
                 <h2><?php the_title(); ?></h2>
-                <div class="post_content">
-                    <?php the_content(); ?>
-                </div>
-                
+
                 <!-- Afficher les champs personnalisés SCF -->
                 <div class="post_custom-fields">
                     <?php
-                    $reference_field = get_field_object('reference');
-                    $reference_label = isset($reference_field['label']) ? $reference_field['label'] : 'Référence';
-                    $reference_value = get_post_meta(get_the_ID(), 'reference', true);
-                    if ($reference_value) {
-                        echo '<p>' . mb_strtoupper($reference_label . ': ' . $reference_value, 'UTF-8') . '</p>';
-                    }
+                        $info = get_info('full');
 
-                    $categorie_terms = get_the_terms(get_the_ID(), 'categorie');
-                    if ($categorie_terms && !is_wp_error($categorie_terms)) {
-                        $categorie_names = wp_list_pluck($categorie_terms, 'name');
-                        $categorie_value = implode(', ', $categorie_names); // Si plusieurs termes sont associés
-                        $categorie_label = get_taxonomy('categorie')->labels->singular_name;
-                        echo '<p>' . mb_strtoupper($categorie_label . ': ' . $categorie_value, 'UTF-8') . '</p>';
-                    }
-
-                    $format_terms = get_the_terms(get_the_ID(), 'format');
-                    if ($format_terms && !is_wp_error($format_terms)) {
-                        $format_names = wp_list_pluck($format_terms, 'name');
-                        $format_value = implode(', ', $format_names);
-                        $format_label = get_taxonomy('format')->labels->singular_name;
-                        echo '<p>' . mb_strtoupper($format_label . ': ' . $format_value, 'UTF-8') . '</p>';
-                    }
-
-                    $type_field = get_field_object('type');
-                    $type_label = isset($type_field['label']) ? $type_field['label'] : 'Type';
-                    $type_value = get_post_meta(get_the_ID(), 'type', true);
-                    if ($type_value) {
-                        echo '<p>' . mb_strtoupper($type_label . ': ' . $type_value, 'UTF-8') . '</p>';
-                    }
-
-                    $annee_terms = get_the_terms(get_the_ID(), 'annee');
-                    if ($annee_terms && !is_wp_error($annee_terms)) {
-                        $annee_names = wp_list_pluck($annee_terms, 'name');
-                        $annee_value = implode(', ', $annee_names);
-                        $annee_label = get_taxonomy('annee')->labels->singular_name;
-                        echo '<p>' . mb_strtoupper($annee_label . ': ' . $annee_value, 'UTF-8') . '</p>';
-                    }
+                        // Parcourir et afficher chaque élément
+                        foreach ($info as $key => $data) {
+                            if (!empty($data['value'])) {
+                                echo "<p>{$data['label']} : {$data['value']}</p>";
+                            }
+                        }
                     ?>
                 </div>
             </div>
 
-            <?php if (has_post_thumbnail()) : ?>
-            <div class="post_featured-image">
-                <?php the_post_thumbnail('large');?>
-            </div>
+            <?php if (!empty($info['image_html'])) : ?>
+                <div class="post_featured-image">
+                    <?php echo $info['image_html']; ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="interactions">
             <div class="interactions_contact">
                 <p>Cette photo vous intéresse ?</p>
-                <a href="http://motaphoto.local/contact/">Contact</a>
+                <a class="modale-button interactions_contact-button" href="#">Contact</a>
             </div>
             <div class="interactions_photos">
-                
+                <?php 
+                $adjacent_posts = get_adjacent_posts_with_loop(get_the_ID());
+
+                // Article précédent
+                if ($adjacent_posts['previous']) :
+                    $prev_post = $adjacent_posts['previous'];
+                    $prev_post_thumbnail = get_the_post_thumbnail($prev_post->ID, 'thumbnail');
+                    $prev_post_link = get_permalink($prev_post->ID);
+                ?>
+                    <div class="interactions_photos-previous">
+                        <a href="<?php echo esc_url($prev_post_link); ?>">
+                            <i class="fa-solid fa-arrow-left-long arrow_left"></i>
+                        </a>
+                        <div class="interactions_photos-left">
+                            <?php echo $prev_post_thumbnail; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php 
+                // Article suivant
+                if ($adjacent_posts['next']) :
+                    $next_post = $adjacent_posts['next'];
+                    $next_post_thumbnail = get_the_post_thumbnail($next_post->ID, 'thumbnail');
+                    $next_post_link = get_permalink($next_post->ID);
+                ?>
+                    <div class="interactions_photos-next">
+                        <a href="<?php echo esc_url($next_post_link); ?>">
+                        <i class="fa-solid fa-arrow-right-long arrow_right"></i>
+                        </a>
+                        <div class="interactions_photos-right">
+                            <?php echo $next_post_thumbnail; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
-        <?php endif; ?>
+        <section class="post_related">
+            <?php
+                // Récupérer les informations du post actuel
+                $current_post_id = get_the_ID();
+                $current_categories = wp_get_post_terms($current_post_id, 'categorie', ['fields' => 'ids']);
+
+                if (!empty($current_categories)) {
+                    // Requête pour deux photos aléatoires dans les mêmes catégories, excluant le post actuel
+                    $related_photos_query = new WP_Query([
+                        'post_type' => 'photo',
+                        'posts_per_page' => 2,
+                        'orderby' => 'rand',
+                        'post__not_in' => [$current_post_id],
+                        'tax_query' => [
+                            [
+                                'taxonomy' => 'categorie',
+                                'field'    => 'term_id',
+                                'terms'    => $current_categories,
+                            ],
+                        ],
+                    ]);
+
+                    if ($related_photos_query->have_posts()) : ?>
+                        <h3>Vous aimerez aussi</h3>
+                        <div class="photo_gallery">
+                            <?php
+                            while ($related_photos_query->have_posts()) :
+                                $related_photos_query->the_post();
+                                get_template_part('template_parts/photo_item');
+                            endwhile;
+                            ?>
+                        </div>
+                        <?php wp_reset_postdata(); ?>
+                    <?php endif;
+                }
+            ?>
+        </section>
     </article>
             <?php
     else :

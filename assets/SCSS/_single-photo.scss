@@ -1,47 +1,129 @@
 .post {
+    &_article {
+        @media (max-width : $tablette) {
+            max-width: 100vw !important;
+        }
+    }
     &_infos {
+        @include flex-center(flex,row,center,end);
         width: 80vw;
         margin: 0 auto;
-        display: flex;
-        align-items: end;
-        gap: 20px;
+        gap: $spacing-medium;
+        @media (max-width : $tablette) {
+            @include flex-center (flex,column-reverse,center,center);
+        } 
     }
     &_description {
         width: 50%;
         border-bottom: black solid 1px;
+        @include text-style (uppercase);
+        @media (max-width : $tablette) {
+            width: 100%;
+            border-bottom: 0;
+        } 
     }
     &_featured-image{
         width: 50%;
-        & img {
+        @media (max-width : $tablette) {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
+        } 
+        & img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+    }
+    &_related {
+        width: 80vw;
+        margin: 0 auto;
+        & h3 {
+            @include text-style(uppercase, 18px);
+            margin: 5% 0;
+            @media (max-width : $tablette) {
+                text-align: center;
+            }
         }
     }
 }
 
 .interactions{
+    @include flex-center();
     width: 80vw;
     height: 118px;
     margin: 0 auto;
-    display: flex;
-    align-items: center;
-    border-bottom: black solid 1px;
+    border-bottom: $black-color solid 1px;
+    @media (max-width : $tablette) {
+        width: 100vw;
+        border-top: $black-color solid 1px;
+        padding: $spacing-medium 0;
+    }
     &_contact {
         width: 50%;
-        display: flex;
-        justify-content: space-between;
-        & a {
+        @include flex-center(flex,row,space-between,unset);
+        @media (max-width : $tablette) {
+            width: 100%;
+            @include flex-center (flex, column,center,center);
+        }
+        & p {
+            @include text-style(none,$font-size-small,300,$secondary-font);
+            @media (max-width : $tablette) {
+                width: 100%;
+                text-align: center;
+                margin-top: 0;
+            }
+        }
+        &-button {
             width: 272px;
             height: 50px;
             padding: 8px 15px;
-            border-radius: 2px;
-            background: #D8D8D8;
             align-content: center;
             text-align: center;
+            @include button-style();
         }
     }
     &_photos {
+        @include flex-center(flex,row,end,end);
         width: 50%;
+        height: 100%;
+        position: relative;
+        @media (max-width : $tablette) {
+            display: none;
+        }
+        &-left,
+        &-right {
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            z-index: 10;
+            @include transition(all, 500ms);
+            top: 0;
+            right: -30px;
+            height: 80%;
+            & img {
+                object-fit: contain;
+                max-height: 100%;
+            }
+        }
+        &-previous{
+            display: inline-block;
+            align-content: end;
+            padding-right: $spacing-large;
+            & .arrow_left:hover {
+                transform: scale(2);
+            }
+        } 
+        &-next {
+            display: inline-block;
+            align-content: end;
+            & .arrow_right:hover {
+                transform: scale(2);
+            }
+        }
+        &-previous:hover &-left,
+        &-next:hover &-right {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 }

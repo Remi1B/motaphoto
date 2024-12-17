@@ -1,25 +1,21 @@
-<!-- Exemple de structure index.php -->
-<?php 
+<?php
+/*
+Template Name: home
+*/ 
 get_header(); ?>
-
 <div class="content-area">
-    <main>
-        <?php if ( have_posts() ) : ?>
-            <?php while ( have_posts() ) : the_post(); ?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                    <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                    <div class="entry-content">
-                        <?php the_excerpt(); ?>
-                    </div>
-                </article>
-            <?php endwhile; ?>
-            
-            <?php the_posts_navigation(); ?>
-        <?php else : ?>
-            <p><?php _e( 'No posts found', 'textdomain' ); ?></p>
-        <?php endif; ?>
+        <?php get_template_part('template_parts/hero_header'); ?>
+    <main class="index">
+        <section class="photo">
+            <?php get_template_part('template_parts/photo_filters'); ?>
+            <!-- Galerie des photos -->
+            <div class="photo_gallery">
+                <!-- Les photos seront chargées ici via AJAX -->
+            </div>
+            <!-- Bouton pour charger plus de photos -->
+            <button class="photo_load-more" data-page="1">Charger plus</button>
+        </section>
     </main>
 </div>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>
