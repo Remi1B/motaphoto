@@ -1,37 +1,70 @@
- /* The Modal (background) */
  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    opacity: 0;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background: $light-background;
+    transform: translateY(-100%);
+    @include transition();
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    &-content {
+        background-color: $white-color;
+        margin: 2.5% auto;
+        padding-top: $spacing-small;
+        @include border(5px,solid, $black-color);
+        max-width: 40%;
+        overflow: hidden;
+        @media (max-width : $tablette) {
+            max-width: 80%;
+            overflow-y: scroll;
+            height: fit-content;
+        } 
+    }
+    &-img {
+        width: 150%;
+        margin-left: -25%;
+        max-height: 110px;
+        @media (max-width : $mobile) {
+            max-height: 55px;
+        }
+    }
 }
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.wpcf7 {
+    @include flex-center(flex, column, unset, center);
+    max-height: 535px;
+    overflow: auto;
+    &-form {
+        max-width: 60%;
+        margin: auto;
+        & input, select, textarea {
+        width: 100%;
+        max-width: 300px;
+        box-sizing: border-box;
+        padding: $spacing-small;
+        @include border();
+        @include text-style (none, $font-size-xsmall, 500, $secondary-font);
+        border-radius: 8px;
+        }
+        &-control.wpcf7-submit {
+            @include text-style (none, $font-size-xsmall, normal, $primary-font);
+            @include transition (all, 500ms, ease-out);
+            @include button-style();
+        }
+        & p {
+            width: 100%;
+            max-width: 300px;
+            margin: 0.5em auto 0 auto;
+        }
+        & label {
+            @include text-style (uppercase, $font-size-xsmall, 500, $secondary-font);
+            color: $blue-dark-color;
+        }
+    }
 }
