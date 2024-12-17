@@ -1,0 +1,55 @@
+.select2 {
+    &-container {
+        width: calc(50% - 5px) !important;
+        @media (max-width : $mobile) {
+            width: calc(70% - 5px) !important;
+        }
+        &--default {
+            .select2-selection--single {
+                @include transition(background-color);
+                color: $blue-dark-color !important;
+            }
+            .select2-results{
+                & > .select2-results__options{
+                    max-height: max-content !important;
+                }
+                &__option {
+                    @include text-style (none, $font-size-xsmall, 500, $secondary-font);
+                    &--highlighted.select2-results__option--selectable {
+                        background-color: $red-light-color !important;
+                        color: $blue-dark-color !important;
+                    }
+                    &--selected {
+                        background-color: $red-dark-color !important;
+                        color: $white-color !important;
+                        &.select2-results__option--highlighted {
+                            background-color: $red-dark-color !important;
+                            color: $white-color !important;
+                        }
+                    }
+                    &--selectable {
+                        color: $blue-dark-color !important;
+                        &.select2-results__option--selected {
+                            color: $white-color !important;
+                        }
+                    }
+                    &:active {
+                        background-color: $red-color !important;
+                        &.select2-results__option--highlighted {
+                            background-color: $red-color !important;
+                        }
+                    }
+                }
+            }
+            .select2-selection__placeholder,
+            .select2-selection__rendered {
+                @include text-style (uppercase, $font-size-xsmall, 500, $secondary-font);
+                color: $blue-dark-color !important;
+            }
+        }
+        &.select2-active .select2-selection--single{
+            @include border(2px,solid, #215AFF !important);
+            border-radius: 4px;
+        }
+    }
+}

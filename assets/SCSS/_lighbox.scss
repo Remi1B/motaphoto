@@ -1,0 +1,93 @@
+.lightbox {
+    @include flex-center(none, column, center, center);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-height: 100vh;
+    height: 100%;
+    background: $light-background;
+    z-index: 1000;
+    &.active {
+        display: flex;
+    }
+    & button {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+    }
+    &_close-btn {
+        top: 0;
+        right: 0;
+        padding: $spacing-large;
+        color: $white-color;
+    }
+    &_arrow {
+        &-left{
+            left : 0;
+            color: $white-color;
+            gap: $spacing-medium;
+            padding: $spacing-large 30px;
+            @include flex-center(flex, row, center, center);
+            @include text-style(none, $font-size-xsmall);
+            @include transition(all, 500ms);
+            @media (max-width : $tablette) {
+                bottom: 0;
+            }
+            &:hover {
+                & .arrow_left-image{
+                    transform: scale(2);
+                }
+                & .arrow_left-text {
+                    font-weight: bold; 
+                    } 
+                }
+            }
+        &-right {
+            right: 0;
+            color: $white-color;
+            gap: $spacing-medium;
+            padding: $spacing-large 30px;
+            @include flex-center(flex, row-reverse, center, center);
+            @include text-style(none, $font-size-xsmall);
+            @include transition(all, 500ms);
+            @media (max-width : $tablette) {
+                bottom: 0;
+            }
+            &:hover {
+                & .arrow_right-image{
+                    transform: scale(2);
+                    }
+                & .arrow_right-text {
+                    font-weight: bold; 
+                }
+            }
+        }
+    }
+    &_open {
+        text-align: center;
+        max-width: 70vw;
+        max-height: 90%;
+        @media (max-width : $tablette) {
+            max-width: 90vw;
+            max-height: 70%;
+        }
+        &-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            height: auto;
+        }
+    }
+    &_infos {
+        @include flex-center(flex, row, space-between);
+        width: 70vw;
+        color: $white-color;
+        &-ref {
+            @include text-style(uppercase, $font-size-small, 500, $secondary-font);
+        }
+        &-categorie{
+            @include text-style(uppercase);
+        }
+    }
+}
