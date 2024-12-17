@@ -78,7 +78,9 @@
             padding: 8px 15px;
             align-content: center;
             text-align: center;
+            @include transition(all, 500ms);
             @include button-style();
+
         }
     }
     &_photos {
@@ -109,15 +111,21 @@
             display: inline-block;
             align-content: end;
             padding-right: $spacing-large;
-            & .arrow_left:hover {
-                transform: scale(2);
+            & .arrow_left{
+                @include transition();
+                &:hover {
+                    transform: scale(2);
+                }
             }
         } 
         &-next {
             display: inline-block;
             align-content: end;
-            & .arrow_right:hover {
-                transform: scale(2);
+            & .arrow_right{
+                @include transition();
+                &:hover {
+                    transform: scale(2);
+                }
             }
         }
         &-previous:hover &-left,

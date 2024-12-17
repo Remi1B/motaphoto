@@ -5,7 +5,7 @@
 
     <button class="lightbox_arrow-left">
     <i class="fa-solid fa-arrow-left-long fa-xl arrow_left-image"></i>
-    <p class="arrow_left-text"> Précedente </p>
+    <p class="arrow_left-text"> Précédente </p>
     </button>
 
     <button class="lightbox_arrow-right">

@@ -5,6 +5,7 @@ body {
 a {
     text-decoration: none;
     color: $black-color;
+    @include transition();
     &:hover {
         font-weight: bold;
     }
@@ -17,6 +18,9 @@ a {
 
 h1{
     @include text-style (uppercase, $font-size-large, 700, $primary-font, italic);
+    @media (max-width : $mobile) {
+        font-size: 60px;
+    }
 
 }
 
@@ -27,6 +31,9 @@ h2 {
         font-size: 46px;
         line-height: 48px;
         margin: 0;
+    }
+    @media (max-width : 385px) {
+        font-size: 35px;
     } 
 }
 

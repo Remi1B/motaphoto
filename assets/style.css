@@ -270,6 +270,7 @@
   padding: 8px 15px;
   align-content: center;
   text-align: center;
+  transition: all 500ms ease;
   background: #D8D8D8;
   color: #000000;
   border-radius: 2px;
@@ -314,12 +315,18 @@
   align-content: end;
   padding-right: 50px;
 }
+.interactions_photos-previous .arrow_left {
+  transition: all 0.3s ease;
+}
 .interactions_photos-previous .arrow_left:hover {
   transform: scale(2);
 }
 .interactions_photos-next {
   display: inline-block;
   align-content: end;
+}
+.interactions_photos-next .arrow_right {
+  transition: all 0.3s ease;
 }
 .interactions_photos-next .arrow_right:hover {
   transform: scale(2);
@@ -523,6 +530,7 @@ body {
 a {
   text-decoration: none;
   color: #000000;
+  transition: all 0.3s ease;
 }
 a:hover {
   font-weight: bold;
@@ -540,6 +548,11 @@ h1 {
   font-family: "SpaceMono", sans-serif;
   font-style: italic;
 }
+@media (max-width: 576px) {
+  h1 {
+    font-size: 60px;
+  }
+}
 
 h2 {
   text-transform: uppercase;
@@ -554,6 +567,11 @@ h2 {
     font-size: 46px;
     line-height: 48px;
     margin: 0;
+  }
+}
+@media (max-width: 385px) {
+  h2 {
+    font-size: 35px;
   }
 }
 
@@ -608,12 +626,14 @@ main {
   font-weight: normal;
   font-family: "SpaceMono", sans-serif;
   font-style: inherit;
-  transition: all 500ms ease;
 }
 @media (max-width: 768px) {
   .lightbox_arrow-left {
     bottom: 0;
   }
+}
+.lightbox_arrow-left .arrow_left-image, .lightbox_arrow-left .arrow_left-text {
+  transition: all 500ms ease;
 }
 .lightbox_arrow-left:hover .arrow_left-image {
   transform: scale(2);
@@ -635,12 +655,14 @@ main {
   font-weight: normal;
   font-family: "SpaceMono", sans-serif;
   font-style: inherit;
-  transition: all 500ms ease;
 }
 @media (max-width: 768px) {
   .lightbox_arrow-right {
     bottom: 0;
   }
+}
+.lightbox_arrow-right .arrow_right-image, .lightbox_arrow-right .arrow_right-text {
+  transition: all 500ms ease;
 }
 .lightbox_arrow-right:hover .arrow_right-image {
   transform: scale(2);
@@ -781,6 +803,7 @@ main {
   height: 100%;
   opacity: 0;
   background: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
 }
 .photo_survol:hover {
   opacity: 1;
@@ -920,7 +943,6 @@ main {
   }
 }
 .select2-container--default .select2-selection--single {
-  transition: background-color 0.3s ease;
   color: #313144 !important;
 }
 .select2-container--default .select2-results > .select2-results__options {

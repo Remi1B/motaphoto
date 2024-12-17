@@ -6,7 +6,6 @@
         }
         &--default {
             .select2-selection--single {
-                @include transition(background-color);
                 color: $blue-dark-color !important;
             }
             .select2-results{

@@ -30,9 +30,11 @@
             padding: $spacing-large 30px;
             @include flex-center(flex, row, center, center);
             @include text-style(none, $font-size-xsmall);
-            @include transition(all, 500ms);
             @media (max-width : $tablette) {
                 bottom: 0;
+            }
+            & .arrow_left-image, .arrow_left-text {
+                @include transition(all, 500ms);
             }
             &:hover {
                 & .arrow_left-image{
@@ -50,9 +52,11 @@
             padding: $spacing-large 30px;
             @include flex-center(flex, row-reverse, center, center);
             @include text-style(none, $font-size-xsmall);
-            @include transition(all, 500ms);
             @media (max-width : $tablette) {
                 bottom: 0;
+            }
+            & .arrow_right-image, .arrow_right-text {
+                @include transition(all, 500ms);
             }
             &:hover {
                 & .arrow_right-image{
